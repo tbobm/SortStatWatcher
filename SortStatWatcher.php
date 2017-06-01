@@ -82,11 +82,21 @@ abstract class SortStatWatcher
                 return $sorted;
         }
 
+        /**
+         * Return the number of times an element of the $data array has been accessed.
+         *
+         * @return int
+         */
         public function GetAccessNbr()
         {
                 return $this->access_nbr;
         }
 
+        /**
+         * Return the number of times elements of the array have been compared.
+         *
+         * @return int
+         */
         public function GetComparisonNbr()
         {
                 return $this->comparison_nbr;
