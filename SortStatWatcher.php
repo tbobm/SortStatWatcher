@@ -6,12 +6,12 @@
 abstract class SortStatWatcher
 {
         /**
-         * @property array $data array to sort
-         * @property string $name name of the algorithm
-         * @property float $start_time time before execution of the sorting algorithm
-         * @property float $end_time time after execution of the sorting algorithm
-         * @property int $access_nbr nbr of times an element of the array is accessed
-         * @property int $comparison_nbr nbr of times elements are compared
+         * @var array $data             array to sort
+         * @var string|null $name       name of the algorithm
+         * @var float $start_time       time before execution of the sorting algorithm
+         * @var float $end_time         time after execution of the sorting algorithm
+         * @var int $access_nbr         nbr of times an element of the array is accessed
+         * @var int $comparison_nbr     nbr of times elements are compared
          */
         protected $data;
         protected $name;
@@ -23,8 +23,8 @@ abstract class SortStatWatcher
         /**
          * Class constructor.
          * 
-         * @param array $data array to sort
-         * @param string $name algorithm's name
+         * @param array $data   array to sort
+         * @param string $name  algorithm's name
          *
          * @return void
          */
@@ -42,7 +42,7 @@ abstract class SortStatWatcher
         /**
          * Sets the name of the algorithm
          *
-         * @param string $name the algorithm's name
+         * @param string $name  the algorithm's name
          */
         public function SetName($name)
         {
