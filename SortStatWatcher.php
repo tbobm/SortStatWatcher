@@ -2,16 +2,37 @@
 /**
  * Class SortStatWatcher
  * @author Theo Massard <massar_t@etna-alternance.net>
+ *
+ * Base class that allows you to easily aggregate
+ * informations about a sorting algorithm.
+ *
+ * You simply have to extend the SortStatWatcher, and
+ * implement the ExecSort() method.
+ *
+ * Then, every time you do an action, call the following
+ *
+ *      action    | method to call
+ * ---------------:---------------
+ * Access a value | IncrAccess()
+ * Compare values | IncrCompare()
+ *
+ * Finally, collect the informations about your script using
+ * the GetResults() method.
+ *
+ * It will contain the nbr of times the data has been accessed,
+ * and compared, and give you the duration of the sort.
+ *
+ * See README.md and Example.php for more informations.
  */
 abstract class SortStatWatcher
 {
         /**
-         * @var array $data             array to sort
-         * @var string|null $name       name of the algorithm
-         * @var float $start_time       time before execution of the sorting algorithm
-         * @var float $end_time         time after execution of the sorting algorithm
-         * @var int $access_nbr         nbr of times an element of the array is accessed
-         * @var int $comparison_nbr     nbr of times elements are compared
+         * @var array           $data           array to sort
+         * @var string|null     $name           name of the algorithm
+         * @var float           $start_time     time before execution
+         * @var float           $end_time       time after execution
+         * @var int             $access_nbr     nbr of times an element of the array is accessed
+         * @var int             $comparison_nbr nbr of times elements are compared
          */
         protected $data;
         protected $name;
@@ -23,15 +44,15 @@ abstract class SortStatWatcher
         /**
          * Class constructor.
          * 
-         * @param array $data   array to sort
-         * @param string $name  algorithm's name
+         * @param array         $data   array to sort
+         * @param string        $name   algorithm's name
          *
          * @return void
          */
         public function __construct($data, $name)
         {
                 $this->data = $data;
-                $this.SetName($name);
+                $this->name = $name;
                 $this->access_nbr = 0;
                 $this->comparison_nbr = 0;
                 return null;
@@ -54,7 +75,7 @@ abstract class SortStatWatcher
          *
          * @return string
          */
-        public function GetName()
+        public function GetSortName()
         {
                 return $this->name;
         }
@@ -67,6 +88,27 @@ abstract class SortStatWatcher
         public function GetDuration()
         {
                 return $this->end_time - $this->start_time;
+        }
+
+        /**
+         * Increments the $access_nbr counter.
+         *
+         * @return null
+         */
+        public function IncrAccess($times)
+        {
+                if ($times > 0)
+                        $this->access_nbr += $times;
+        }
+
+        /**
+         * Increments the $comparison_nbr counter.
+         *
+         * @return null
+         */
+        public function IncrCompare()
+        {
+                ++$this->comparison_nbr;
         }
 
         /**
@@ -102,11 +144,19 @@ abstract class SortStatWatcher
                 return $this->comparison_nbr;
         }
 
+        /**
+         * Return every information needed, as a dictionnary
+         *
+         * @return array
+         */
         public function GetResults()
         {
                 $tmp = array();
-                $tmp['sort name'] = $this->GetName();
-                /* TODO: Return JSON */
+                $tmp['name'] = $this->GetSortName();
+                $tmp['duration'] = $this->GetDuration();
+                $tmp['access_nbr'] = $this->GetAccessNbr();
+                $tmp['comp_nbr'] = $this->GetComparisonNbr();
+                return $tmp;
         }
 }
 ?>
