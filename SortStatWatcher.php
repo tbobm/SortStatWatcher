@@ -19,7 +19,7 @@
  * Finally, collect the informations about your script using
  * the GetResults() method.
  *
- * It will contain the nbr of times the data has been accessed,
+ * It will contain the number of times the data has been accessed,
  * and compared, and give you the duration of the sort.
  *
  * See README.md and Example.php for more informations.
@@ -47,7 +47,7 @@ abstract class SortStatWatcher
          * @param array         $data   array to sort
          * @param string        $name   algorithm's name
          *
-         * @return void
+         * @return null
          */
         public function __construct($data, $name)
         {
@@ -55,15 +55,23 @@ abstract class SortStatWatcher
                 $this->name = $name;
                 $this->access_nbr = 0;
                 $this->comparison_nbr = 0;
-                return null;
+                return (null);
         }
 
+	/**
+	 * Actual sort to implement and test.
+	 * 
+	 * The data to be sorted is stored in $this->data
+	 *
+	 *
+	 * @return null
+	 */
         abstract public function ExecSort();
 
         /**
-         * Sets the name of the algorithm
+         * Set the name of the algorithm
          *
-         * @param string $name  the algorithm's name
+         * @param string $name  the algorithm name
          */
         public function SetName($name)
         {
@@ -71,13 +79,13 @@ abstract class SortStatWatcher
         }
 
         /**
-         * Returns the algorithm's name
+         * Return the algorithm name
          *
          * @return string
          */
         public function GetSortName()
         {
-                return $this->name;
+                return ($this->name);
         }
 
         /**
@@ -87,11 +95,11 @@ abstract class SortStatWatcher
          */
         public function GetDuration()
         {
-                return $this->end_time - $this->start_time;
+                return ($this->end_time - $this->start_time);
         }
 
         /**
-         * Increments the $access_nbr counter.
+         * Increment the $access_nbr counter.
          *
          * @return null
          */
@@ -102,7 +110,7 @@ abstract class SortStatWatcher
         }
 
         /**
-         * Increments the $comparison_nbr counter.
+         * Increment the $comparison_nbr counter.
          *
          * @return null
          */
@@ -112,7 +120,7 @@ abstract class SortStatWatcher
         }
 
         /**
-         * Wraps the abstract method ExecSort, aka the sorting algorithm.
+         * Wraps the abstract method ExecSort - the sorting algorithm.
          *
          * @return array
          */
@@ -121,7 +129,7 @@ abstract class SortStatWatcher
                 $this->start_time = microtime(true);
                 $sorted = $this->ExecSort();
                 $this->end_time = microtime(true);
-                return $sorted;
+                return ($sorted);
         }
 
         /**
@@ -131,7 +139,7 @@ abstract class SortStatWatcher
          */
         public function GetAccessNbr()
         {
-                return $this->access_nbr;
+                return ($this->access_nbr);
         }
 
         /**
@@ -141,11 +149,11 @@ abstract class SortStatWatcher
          */
         public function GetComparisonNbr()
         {
-                return $this->comparison_nbr;
+                return ($this->comparison_nbr);
         }
 
         /**
-         * Return every information needed, as a dictionnary
+         * Return every information needed as a dictionnary
          *
          * @return array
          */
@@ -156,7 +164,7 @@ abstract class SortStatWatcher
                 $tmp['duration'] = $this->GetDuration();
                 $tmp['access_nbr'] = $this->GetAccessNbr();
                 $tmp['comp_nbr'] = $this->GetComparisonNbr();
-                return $tmp;
+                return ($tmp);
         }
 }
 ?>
