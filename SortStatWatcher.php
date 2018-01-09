@@ -55,7 +55,7 @@ abstract class SortStatWatcher
                 $this->name = $name;
                 $this->access_nbr = 0;
                 $this->comparison_nbr = 0;
-                return (null);
+                return ($this);
         }
 
 	/**
